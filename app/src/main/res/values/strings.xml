@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">CampusEats</string>
+    <string name="notsignup">Already have an account? Sign in</string>
+    <string name="notsignin">Don\'t have an account? Sign up</string>
+    <string name="forgot">Forget Password?</string>
+
+    <!-- Checkout activity -->
+    <string name="title_activity_payment">activity_payment</string>
+    <string name="checkout_item_description">Description</string>
+    <string name="googlepay_status_unavailable" translatable="false">Unfortunately, Google Pay is
+        not available on this phone.
+    </string>
+    <string name="payments_show_name" translatable="false">Successfully received payment data for
+        %s!
+    </string>
+    <string name="userprofile">Your Profile</string>
+</resources>

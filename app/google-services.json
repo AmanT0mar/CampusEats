@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "786014774270",
+    "project_id": "campuseats-272f8",
+    "storage_bucket": "campuseats-272f8.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:786014774270:android:0cc070ca6faeb95c7256af",
+        "android_client_info": {
+          "package_name": "com.example.campuseats"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "786014774270-5nn5mn4lr8rtdt4puglkaottt0mh7h8e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCu0hGSQ6Qez_E5Cjw22bTwFoDYb6lqc9I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "786014774270-5nn5mn4lr8rtdt4puglkaottt0mh7h8e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
