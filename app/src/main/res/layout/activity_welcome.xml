@@ -16,9 +16,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="WELCOME TO CAMPUS EATS"
+        android:text="WELCOME TO CAMPUSEATS"
         android:textColor="#ffffff"
-        android:textSize="25dp"
+        android:textSize="40dp"
         android:layout_above="@+id/welcome_img"
         android:layout_marginBottom="200dp"
         android:textAlignment="center"
@@ -37,13 +37,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@null"
+        android:layout_margin="15dp"
+        android:background="@color/welcome_btn"
         android:text="SIGN UP"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="20dp"/>
 
     <Button
         android:id="@+id/signin_btn"
@@ -51,12 +49,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@null"
+        android:layout_margin="15dp"
+        android:background="@color/welcome_btn"
         android:text="SIGN IN"
+        android:textSize="20dp"
         android:textColor="@color/white" />
 
 </RelativeLayout>

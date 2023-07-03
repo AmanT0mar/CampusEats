@@ -4,32 +4,30 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
     Context context;
     ArrayList<FoodItem> list;
+    OnItemClickListener onItemClickListener;
 
-    public RecyclerViewAdapter(Context context, ArrayList<FoodItem> list) {
+    public RecyclerViewAdapter(Context context, ArrayList<FoodItem> list, OnItemClickListener onItemClickListener) {
         this.context = context;
         this.list = list;
+        this.onItemClickListener = onItemClickListener;
+
     }
 
     @Override
@@ -42,9 +40,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         FoodItem foodItem = list.get(position);
-        holder.txtview1.setText(foodItem.getName());
-        holder.txtview2.setText("₹ "+foodItem.getPrice());
-        holder.txtview3.setText(foodItem.getRating()+" ☆");
+        String l = foodItem.getId();
+        holder.foodname.setText(foodItem.getName());
+        holder.foodprice.setText("₹ "+foodItem.getPrice());
+        holder.foodrating.setText(foodItem.getRating()+" ☆");
         AssetManager assetManager = context.getAssets();
         InputStream inputStream = null;
         try {
@@ -53,23 +52,39 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             throw new RuntimeException(e);
         }
         Bitmap myBitmap = BitmapFactory.decodeStream(inputStream);
-        holder.imgview.setImageBitmap(myBitmap);
+        holder.foodimg.setImageBitmap(myBitmap);
+        holder.itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                int position = holder.getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION) {
+                    FoodItem item = list.get(position);
+                    onItemClickListener.onItemClick(item);
+                }
+            }
+        });
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+//    public void setOnClickListener(OnClickListener onClickListener) {
+//        this.onClickListener = onClickListener;
+//    }
+    public interface OnItemClickListener {
+        void onItemClick(FoodItem foodItem);
+    }
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtview1,txtview2,txtview3;
-        ImageView imgview;
+        TextView foodname,foodprice,foodrating;
+        ImageView foodimg;
 
         ViewHolder(View itemView) {
             super(itemView);
-            txtview1 = itemView.findViewById(R.id.textView1);
-            txtview2 = itemView.findViewById(R.id.textView2);
-            txtview3 = itemView.findViewById(R.id.textView3);
-            imgview = itemView.findViewById(R.id.imageview1);
+            foodname = itemView.findViewById(R.id.food_name_home);
+            foodprice = itemView.findViewById(R.id.food_price_home);
+            foodrating = itemView.findViewById(R.id.food_rating_home);
+            foodimg = itemView.findViewById(R.id.food_img_home);
         }
     }
 }

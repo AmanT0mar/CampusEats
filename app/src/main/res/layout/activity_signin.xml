@@ -60,19 +60,6 @@
         </com.google.android.material.textfield.TextInputLayout>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/forget_pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/forgot"
-        android:layout_below="@id/signin_linear"
-        android:layout_centerHorizontal="true"
-        android:background="@null"
-        android:textColor="@color/black"
-        android:layout_alignParentRight="true"
-        />
-
     <Button
         android:id="@+id/btnSignIn"
         android:layout_width="wrap_content"

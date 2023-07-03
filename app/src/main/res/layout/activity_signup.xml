@@ -114,15 +114,17 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/signup_linear"
         android:text="SignUp"
-        android:layout_marginTop="10dp"/>
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        android:background="@color/signup_btn"/>
 
     <TextView
         android:id="@+id/signin_txtview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/notsignup"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp"
+        android:layout_margin="20dp"
+        android:layout_below="@id/btnSignUp"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
         android:textSize="15sp"

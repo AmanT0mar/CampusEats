@@ -6,13 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.campuseats.viewmodel.User;
-import com.google.android.gms.common.internal.service.Common;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 public class activitysignin extends AppCompatActivity {
     EditText phonenum,password;
     Button signinbtn;
+    TextView noacc;
     FirebaseDatabase firebaseDatabase;
     DatabaseReference user;
 
@@ -33,6 +34,7 @@ public class activitysignin extends AppCompatActivity {
         phonenum = findViewById(R.id.phone_no);
         password = findViewById(R.id.user_password);
         signinbtn = findViewById(R.id.btnSignIn);
+        noacc = findViewById(R.id.signup_txtview);
 
         firebaseDatabase = FirebaseDatabase.getInstance("https://campuseats-272f8-default-rtdb.asia-southeast1.firebasedatabase.app");
         user = firebaseDatabase.getReference("User");
@@ -51,7 +53,7 @@ public class activitysignin extends AppCompatActivity {
                             User user = snapshot.child(phonenum.getText().toString()).getValue(User.class);
                             user.setPhone(phonenum.getText().toString());
                             if (user.getPassword().equals(password.getText().toString())) {
-                                Intent home = new Intent(activitysignin.this,activityhomescreen.class);
+                                Intent home = new Intent(activitysignin.this,activityhome.class);
                                 home.putExtra("phonenum",phonenum.getText().toString());
                                 startActivity(home);
                                 finish();
@@ -70,6 +72,13 @@ public class activitysignin extends AppCompatActivity {
 
                     }
                 });
+            }
+        });
+        noacc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(activitysignin.this, activitysignup.class);
+                startActivity(intent);
             }
         });
     }

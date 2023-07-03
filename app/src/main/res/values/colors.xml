@@ -9,4 +9,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="green">#00FF00</color>
     <color name="nav_bar">#FFA500</color>
+    <color name="cancel_button">#808080</color>
+    <color name="welcome_btn">#000000BF</color>
+    <color name="signup_btn">#5dbea3</color>
 </resources>

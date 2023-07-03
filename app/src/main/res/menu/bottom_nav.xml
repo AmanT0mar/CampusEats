@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/Food"
-        android:title="Food"
-        android:icon="@drawable/ic_launcher_foreground"/>
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/baseline_dining_24"/>
     <item
         android:id="@+id/cart"
         android:title="Cart"

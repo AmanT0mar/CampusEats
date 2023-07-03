@@ -1,6 +1,5 @@
 package com.example.campuseats;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -62,29 +61,20 @@ public class activitysignup extends AppCompatActivity {
                 String Confirmpassword = confuserpwd.getText().toString();
                 String phonenumber = phonenum.getText().toString();
 
-                final ProgressDialog progressDialog = new ProgressDialog(activitysignup.this);
-                progressDialog.setMessage("Please wait..!");
-                progressDialog.show();
-
                 if (email.length() <= 0 || Username.length() <= 0 || password.length() <= 0 || Confirmpassword.length() <= 0 || phonenumber.length() <= 0){
-                    progressDialog.dismiss();
                     Toast.makeText(activitysignup.this,"Field cannot be empty",Toast.LENGTH_SHORT).show();
                 }
                 else if (!email.matches(emailVALID)){
-                    progressDialog.dismiss();
                     Toast.makeText(activitysignup.this,"Enter correct email",Toast.LENGTH_SHORT).show();
                 }
                 else if (phonenumber.length() != 10){
-                    progressDialog.dismiss();
                     Toast.makeText(activitysignup.this,"Enter correct phone number",Toast.LENGTH_SHORT).show();
                 }
                 else if(!isValidPassword(password)) {
-                    progressDialog.dismiss();
                     Toast.makeText(activitysignup.this,"Password doesn't match rules",Toast.LENGTH_SHORT).show();
                     return;
                 }
                 else if (!password.equals(Confirmpassword)){
-                    progressDialog.dismiss();
                     Toast.makeText(activitysignup.this, "Password doesn't match", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -92,15 +82,11 @@ public class activitysignup extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.child(phonenumber).exists()) {
-                                progressDialog.dismiss();
                                 Toast.makeText(activitysignup.this, "User already exists!", Toast.LENGTH_SHORT).show();
                             } else {
-                                progressDialog.dismiss();
                                 User userinfo = new User(Username, password, email, phonenumber);
                                 user.child(phonenumber).setValue(userinfo);
                                 Toast.makeText(activitysignup.this, "SignUp successfully! ", Toast.LENGTH_SHORT).show();
-                                finish();
-
                             }
                         }
 
@@ -110,8 +96,6 @@ public class activitysignup extends AppCompatActivity {
                         }
                     });
                 }
-//                Intent intent = new Intent(activitysignup.this,activitysignin.class);
-//                startActivity(intent);
             }
         });
     }
