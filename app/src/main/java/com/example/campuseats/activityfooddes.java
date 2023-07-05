@@ -91,12 +91,11 @@ public class activityfooddes extends AppCompatActivity {
                 String fprice = foodItem.getPrice();
                 String fquantity = foodquantity.getText().toString();
 
-
                 if (fquantity.equals("0")){
                     Toast.makeText(activityfooddes.this, "Invalid Quantity", Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    cart.addValueEventListener(new ValueEventListener() {
+                    cart.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             if (snapshot.child(id).exists()){
@@ -108,7 +107,6 @@ public class activityfooddes extends AppCompatActivity {
                                 Toast.makeText(activityfooddes.this, "Item added to cart", Toast.LENGTH_SHORT).show();
                             }
                         }
-
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                             Toast.makeText(activityfooddes.this, "Failed to add item to cart" + error, Toast.LENGTH_SHORT).show();

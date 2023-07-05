@@ -15,6 +15,10 @@
         android:theme="@style/Theme.CampusEats"
         tools:targetApi="31">
         <meta-data
+            android:name="com.google.android.gms.wallet.api.apikey"
+            android:value="AIzaSyDllohgvd7gKynUQAeanrLonuZXhlvelmE"
+            />
+        <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true"/>
         <activity

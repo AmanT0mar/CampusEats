@@ -5,7 +5,6 @@ public class CartItems {
     private String Price;
     private String Quantity;
     private String Id;
-
     public CartItems() { }
 
     public String getName()
@@ -37,4 +36,5 @@ public class CartItems {
 
     public String getQuantity() {return Quantity;}
     public void setQuantity(String Quantity) {this.Quantity = Quantity;}
+
 }

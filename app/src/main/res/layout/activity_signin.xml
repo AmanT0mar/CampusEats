@@ -50,12 +50,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="15dp"
-            android:hint="Password">
+            android:hint="Password"
+            android:inputType="textPassword">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/user_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,16 +69,18 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/signin_linear"
         android:text="SignIn"
-        android:layout_marginTop="80dp"/>
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/signup_btn"
+        />
     <TextView
         android:id="@+id/signup_txtview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/notsignin"
-        android:layout_alignParentBottom="true"
+        android:layout_below="@id/btnSignIn"
         android:layout_centerHorizontal="true"
         android:textColor="@color/black"
-        android:layout_marginBottom="40dp"
+        android:layout_margin="30dp"
         android:textSize="15dp"
         />
 

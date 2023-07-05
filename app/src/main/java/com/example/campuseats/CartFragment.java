@@ -1,10 +1,13 @@
 package com.example.campuseats;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,10 +32,15 @@ import java.util.ArrayList;
 public class CartFragment extends Fragment {
 
     RecyclerView recyclerViewCart;
+    TextView totalamt;
     DatabaseReference databaseReferenceCart;
+    int priceperitem = 0;
     RecyclerViewAdapterCart recyclerViewAdapterCart;
     ArrayList<CartItems> cartlist;
-    Button placeorderbtn;
+    RelativeLayout placeorderbtn;
+
+    String Amount;
+
 
 
 
@@ -79,10 +87,11 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.fragment_cart, container, false);
 
-        placeorderbtn = rootView.findViewById(R.id.place_order_btn);
+        placeorderbtn = rootView.findViewById(R.id.googlePayButton);
+        totalamt = rootView.findViewById(R.id.total_amount);
         recyclerViewCart = rootView.findViewById(R.id.cart_items);
         databaseReferenceCart = FirebaseDatabase.getInstance("https://campuseats-272f8-default-rtdb.asia-southeast1.firebasedatabase.app").getReference("Cart");
         recyclerViewCart.setHasFixedSize(true);
@@ -96,22 +105,50 @@ public class CartFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     CartItems cartItems = dataSnapshot.getValue(CartItems.class);
                     cartlist.add(cartItems);
+                    priceperitem += Integer.parseInt(cartItems.getPrice()) * Integer.parseInt(cartItems.getQuantity());
                 }
+                Amount = Integer.toString(priceperitem);
+                totalamt.setText("₹ "+Amount);
                 recyclerViewAdapterCart.notifyDataSetChanged();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(getContext(), "BLAH", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
             }
         });
         placeorderbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(),"hehe",Toast.LENGTH_LONG).show();
+                PayAmount();
             }
         });
-
         return rootView;
     }
+
+
+
+
+    private void PayAmount() {
+        String GOOGLE_PAY_PACKAGE_NAME = "com.google.android.apps.nbu.paisa.user";
+        int GOOGLE_PAY_REQUEST_CODE = 123;
+
+        Uri uri =
+                new Uri.Builder()
+                        .scheme("upi")
+                        .authority("pay")
+                        .appendQueryParameter("pa", "amantomar123456789@okhdfcbank")
+                        .appendQueryParameter("pn", "CampusEats")
+                        //.appendQueryParameter("mc", "your-merchant-code")
+                        //.appendQueryParameter("tr", "your-transaction-ref-id")
+                        //.appendQueryParameter("tn", "your-transaction-note")
+                        .appendQueryParameter("am", Amount)
+                        .appendQueryParameter("cu", "INR")
+                        //.appendQueryParameter("url", "your-transaction-url")
+                        .build();
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(uri);
+        intent.setPackage(GOOGLE_PAY_PACKAGE_NAME);
+        startActivityForResult(intent, GOOGLE_PAY_REQUEST_CODE);
+    }
+
 }

@@ -12,15 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.campuseats.viewmodel.CartItems;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class RecyclerViewAdapterCart extends RecyclerView.Adapter<RecyclerViewAdapterCart.ViewHolder> {
-
     Context context;
     ArrayList<CartItems> list;
 
@@ -45,27 +46,25 @@ public class RecyclerViewAdapterCart extends RecyclerView.Adapter<RecyclerViewAd
         holder.foodquantity.setText("Nos "+cartItems.getQuantity());
         int tot = Integer.parseInt(cartItems.getPrice()) * Integer.parseInt(cartItems.getQuantity());
         holder.foodtotal.setText("₹ "+ tot);
-
         holder.removebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 db.child(cartItems.getId()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
-                        Toast.makeText(context, "Removed Item from cart successfully", Toast.LENGTH_SHORT).show();
-                        notifyDataSetChanged();
+                        list.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position,getItemCount());
                     }
-                })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(context, "Failed to Removed Item from Cart", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(context,"Error",Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }
-
     @Override
     public int getItemCount() {
         return list.size();

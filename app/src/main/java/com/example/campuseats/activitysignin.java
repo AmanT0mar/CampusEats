@@ -1,6 +1,5 @@
 package com.example.campuseats;
 
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,41 +38,43 @@ public class activitysignin extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance("https://campuseats-272f8-default-rtdb.asia-southeast1.firebasedatabase.app");
         user = firebaseDatabase.getReference("User");
 
-        signinbtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final ProgressDialog progressDialog = new ProgressDialog(activitysignin.this);
-                progressDialog.setMessage("Please wait!");
-                progressDialog.show();
-                user.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.child(phonenum.getText().toString()).exists()) {
-                            progressDialog.dismiss();
-                            User user = snapshot.child(phonenum.getText().toString()).getValue(User.class);
-                            user.setPhone(phonenum.getText().toString());
-                            if (user.getPassword().equals(password.getText().toString())) {
-                                Intent home = new Intent(activitysignin.this,activityhome.class);
-                                home.putExtra("phonenum",phonenum.getText().toString());
-                                startActivity(home);
-                                finish();
+
+
+            signinbtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(phonenum.getText().toString().length() <= 0 || password.getText().toString().length() <= 0)
+                    {
+                        Toast.makeText(activitysignin.this, "Fields cannot be empty", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                    user.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if (snapshot.child(phonenum.getText().toString()).exists()) {
+                                User user = snapshot.child(phonenum.getText().toString()).getValue(User.class);
+                                user.setPhone(phonenum.getText().toString());
+                                if (user.getPassword().equals(password.getText().toString())) {
+                                    Intent home = new Intent(activitysignin.this, activityhome.class);
+                                    home.putExtra("phonenum", phonenum.getText().toString());
+                                    startActivity(home);
+                                    finish();
+                                } else {
+                                    Toast.makeText(activitysignin.this, "Phone no. or Password is incorrect", Toast.LENGTH_SHORT).show();
+                                }
                             } else {
-                                Toast.makeText(activitysignin.this, "Phone no. or Password is incorrect", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(activitysignin.this, "Please Sign Up First", Toast.LENGTH_SHORT).show();
                             }
                         }
-                        else{
-                            progressDialog.dismiss();
-                            Toast.makeText(activitysignin.this, "Please Sign Up First", Toast.LENGTH_SHORT).show();
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            Toast.makeText(activitysignin.this, "Error", Toast.LENGTH_SHORT).show();
                         }
+                    });
                     }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
+                }
+            });
         noacc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
