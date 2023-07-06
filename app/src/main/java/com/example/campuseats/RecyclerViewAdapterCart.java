@@ -55,6 +55,7 @@ public class RecyclerViewAdapterCart extends RecyclerView.Adapter<RecyclerViewAd
                         list.remove(position);
                         notifyItemRemoved(position);
                         notifyItemRangeChanged(position,getItemCount());
+                        CartFragment.ChangeAmount(Integer.parseInt(cartItems.getPrice())*Integer.parseInt(cartItems.getQuantity()));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

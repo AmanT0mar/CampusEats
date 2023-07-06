@@ -32,14 +32,14 @@ import java.util.ArrayList;
 public class CartFragment extends Fragment {
 
     RecyclerView recyclerViewCart;
-    TextView totalamt;
+    static TextView totalamt;
     DatabaseReference databaseReferenceCart;
     int priceperitem = 0;
     RecyclerViewAdapterCart recyclerViewAdapterCart;
     ArrayList<CartItems> cartlist;
     RelativeLayout placeorderbtn;
 
-    int Amount;
+    static int Amount;
 
 
 
@@ -150,5 +150,10 @@ public class CartFragment extends Fragment {
         intent.setData(uri);
         intent.setPackage(GOOGLE_PAY_PACKAGE_NAME);
         startActivityForResult(intent, GOOGLE_PAY_REQUEST_CODE);
+    }
+    public static void ChangeAmount(int amt)
+    {
+        Amount -= amt;
+        totalamt.setText("Total Price:   ₹ "+Amount);
     }
 }
