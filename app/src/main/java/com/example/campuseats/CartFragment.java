@@ -39,7 +39,7 @@ public class CartFragment extends Fragment {
     ArrayList<CartItems> cartlist;
     RelativeLayout placeorderbtn;
 
-    String Amount;
+    int Amount;
 
 
 
@@ -99,7 +99,7 @@ public class CartFragment extends Fragment {
         cartlist = new ArrayList<>();
         recyclerViewAdapterCart = new RecyclerViewAdapterCart(getContext(),cartlist);
         recyclerViewCart.setAdapter(recyclerViewAdapterCart);
-        databaseReferenceCart.addValueEventListener(new ValueEventListener() {
+        databaseReferenceCart.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
@@ -107,9 +107,10 @@ public class CartFragment extends Fragment {
                     cartlist.add(cartItems);
                     priceperitem += Integer.parseInt(cartItems.getPrice()) * Integer.parseInt(cartItems.getQuantity());
                 }
-                Amount = Integer.toString(priceperitem);
-                totalamt.setText("₹ "+Amount);
                 recyclerViewAdapterCart.notifyDataSetChanged();
+                Amount = priceperitem;
+                totalamt.setText("Total Price:   ₹ "+Amount);
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -141,7 +142,7 @@ public class CartFragment extends Fragment {
                         //.appendQueryParameter("mc", "your-merchant-code")
                         //.appendQueryParameter("tr", "your-transaction-ref-id")
                         //.appendQueryParameter("tn", "your-transaction-note")
-                        .appendQueryParameter("am", Amount)
+                        .appendQueryParameter("am", Integer.toString(Amount))
                         .appendQueryParameter("cu", "INR")
                         //.appendQueryParameter("url", "your-transaction-url")
                         .build();
@@ -150,5 +151,4 @@ public class CartFragment extends Fragment {
         intent.setPackage(GOOGLE_PAY_PACKAGE_NAME);
         startActivityForResult(intent, GOOGLE_PAY_REQUEST_CODE);
     }
-
 }
