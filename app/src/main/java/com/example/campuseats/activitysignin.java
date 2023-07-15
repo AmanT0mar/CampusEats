@@ -54,7 +54,7 @@ public class activitysignin extends AppCompatActivity {
                             if (snapshot.child(phonenum.getText().toString()).exists()) {
                                 User user = snapshot.child(phonenum.getText().toString()).getValue(User.class);
                                 user.setPhone(phonenum.getText().toString());
-                                if (user.getPassword().equals(password.getText().toString())) {
+                               if (user.getPassword().equals(password.getText().toString())) {
                                     Intent home = new Intent(activitysignin.this, activityhome.class);
                                     home.putExtra("phonenum", phonenum.getText().toString());
                                     startActivity(home);

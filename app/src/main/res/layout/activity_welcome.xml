@@ -20,16 +20,17 @@
         android:text="WELCOME TO CAMPUSEATS"
         android:textColor="#ffffff"
         android:textSize="40dp"
-        android:layout_above="@+id/welcome_img"
-        android:layout_marginBottom="200dp"
+        android:layout_marginTop="50dp"
         android:textAlignment="center"
         />
+
     <ImageView
         android:id="@+id/welcome_img"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_margin="10dp"
+        android:src="@drawable/welcome_back"
+
         />
 
     <Button

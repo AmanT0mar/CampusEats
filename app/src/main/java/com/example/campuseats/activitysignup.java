@@ -87,6 +87,8 @@ public class activitysignup extends AppCompatActivity {
                                 User userinfo = new User(Username, password, email, phonenumber);
                                 user.child(phonenumber).setValue(userinfo);
                                 Toast.makeText(activitysignup.this, "SignUp successfully! ", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(activitysignup.this,activitysignin.class);
+                                startActivity(intent);
                             }
                         }
 
@@ -95,6 +97,7 @@ public class activitysignup extends AppCompatActivity {
                             Toast.makeText(activitysignup.this, "Fail to Sign Up" + error, Toast.LENGTH_SHORT).show();
                         }
                     });
+
                 }
             }
         });

@@ -137,7 +137,7 @@ public class CartFragment extends Fragment {
                 new Uri.Builder()
                         .scheme("upi")
                         .authority("pay")
-                        .appendQueryParameter("pa", "amantomar123456789@okhdfcbank")
+                        .appendQueryParameter("pa", "7302705498@paytm")
                         .appendQueryParameter("pn", "CampusEats")
                         //.appendQueryParameter("mc", "your-merchant-code")
                         //.appendQueryParameter("tr", "your-transaction-ref-id")

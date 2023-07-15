@@ -110,6 +110,7 @@ public class HomeFragment extends Fragment implements Serializable {
                 recyclerViewAdapter.notifyDataSetChanged();
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getContext(), "BLAH", Toast.LENGTH_LONG).show();
